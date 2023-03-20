@@ -13,18 +13,25 @@ router.post("/loginpwd", (req, res, next) => {
   const sqlTel = "select * from user where tel = ?";
   const sqlPwd = "select * from user where pwd = ?";
 
-  connection.query(sqlTel, [userTel], (e, result) => {
-    connection.release();// 释放连接
-    if (e) {
-      console.error("Error querying database:", err);
-      res.status(500).json({
-        message: "服务器错误",
-      });
-      return;
+  pool.getConnection((err,connection)=>{
+    if(err){
+      console.log(err);
+      return
     }
-    if(result.length>0){
-
-    }
-  });
+    connection.query(sqlTel, [userTel], (e, result) => {
+      connection.release();// 释放连接
+      if (e) {
+        console.error("Error querying database:", err);
+        res.status(500).json({
+          message: "服务器错误",
+        });
+        return;
+      }
+      if(result.length>0){
+           
+      }
+    });
+  })
+  
 });
 module.exports = router;
