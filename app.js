@@ -25,7 +25,7 @@ app.use(cookieParser());
 
 // 注册相应的路径
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/user', usersRouter);
 app.use('/getSongs', getSongsRouter);
 app.use('/openSong',openSongRouter)
 
